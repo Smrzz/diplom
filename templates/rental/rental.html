@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кува365</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <a href="{% url 'home' %}"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+        </div>
+        <ul class="navbar">
+          <a href="{% url 'hostels' %}">
+            <li class="nav">Гостиница</li>
+          </a>
+          <a href="{% url 'rental' %}">
+            <li class="nav">Прокат</li>
+          </a>
+          <a href="{% url 'news' %}">
+            <li class="nav">Новости</li>
+          </a>
+          <a href="https://rtsp.me/embed/h3Ykkn7E/">
+            <li class="nav">Веб-камера</li>
+          </a>
+        </ul>
+      </div>
+    </header>
+<main>
+<div class="prokat-container">
+    <h1 class="prokat-title">Прокат снаряжения</h1>
+    <p class="prokat-subtitle">Всё необходимое для комфортного катания — в одном месте</p>
+
+    <section class="prokat-section">
+      <h2>Условия проката</h2>
+      <div class="prokat-info">
+        <p><strong>Время работы:</strong> ежедневно с <strong>10:00 до 18:00</strong></p>
+        <p><strong>Местоположение:</strong> здание гостиницы, вход с торца</p>
+        <p><strong>Документы:</strong> прокат осуществляется по <strong>паспорту</strong> или <strong>водительскому удостоверению</strong></p>
+        <p><strong>Дети до 18:</strong> только в сопровождении родителей</p>
+      </div>
+    </section>
+
+    <section class="prokat-section">
+      <h2>Доступное снаряжение</h2>
+      <div class="prokat-equipment-grid">
+        <div class="prokat-equipment-card">
+          <h3>Лыжи (обычные)</h3>
+          <p>Для новичков и любителей. Комплект: лыжи, крепления, ботинки.</p>
+          <strong>от 600 ₽ / день</strong>
+        </div>
+
+        <div class="prokat-equipment-card">
+          <h3>Лыжи (спортцех)</h3>
+          <p>Проф. модели с улучшенной геометрией. Отличный выбор для уверенных.</p>
+          <strong>от 900 ₽ / день</strong>
+        </div>
+
+        <div class="prokat-equipment-card">
+          <h3>Сноуборд (обычный)</h3>
+          <p>Универсальные доски с ботинками и креплениями. Подходят всем.</p>
+          <strong>от 600 ₽ / день</strong>
+        </div>
+
+        <div class="prokat-equipment-card">
+          <h3>Сноуборд (спортцех)</h3>
+          <p>Жёсткие доски для парка и фрирайда. Настроены под спорт.</p>
+          <strong>от 900 ₽ / день</strong>
+        </div>
+
+        <div class="prokat-equipment-card">
+          <h3>Детское снаряжение</h3>
+          <p>Облегчённые комплекты, ботинки, шлем — всё, что нужно ребёнку.</p>
+          <strong>от 400 ₽ / день</strong>
+        </div>
+
+        <div class="prokat-equipment-card">
+          <h3>Шлемы</h3>
+          <p>Обязательны для детей. Безопасность — прежде всего.</p>
+          <strong>200 ₽ / день</strong>
+        </div>
+
+        <div class="prokat-equipment-card">
+          <h3>Очки</h3>
+          <p>Солнце, ветер, снег — защити глаза на склоне.</p>
+          <strong>150 ₽ / день</strong>
+        </div>
+
+        <div class="prokat-equipment-card">
+          <h3>Палки</h3>
+          <p>Подбираются по росту. Алюминий или карбон.</p>
+          <strong>100 ₽ / день</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="logo">
+            <a href="index.html"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+          </div>
+        <div class="social">
+          <a href="https://vk.com/kuva365"><img src="{% static 'imgs/vk.svg' %}" class="footer-icons" /></a>
+          <a href="https://t.me/s/kuva365"><img src="{% static 'imgs/tg.svg' %}" class="footer-icons" /></a>
+        </div>
+        <h4 class="footer-num">8 (800) 55 35 35</h4>
+      </div>
+    </footer>
+  </body>
+</html>

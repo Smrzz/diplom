@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кува365</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <a href="{% url 'home' %}"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+        </div>
+        <ul class="navbar">
+          <a href="{% url 'hostels' %}">
+            <li class="nav">Гостиница</li>
+          </a>
+          <a href="{% url 'rental' %}">
+            <li class="nav">Прокат</li>
+          </a>
+          <a href="{% url 'news' %}">
+            <li class="nav">Новости</li>
+          </a>
+          <a href="https://rtsp.me/embed/h3Ykkn7E/">
+            <li class="nav">Веб-камера</li>
+          </a>
+        </ul>
+      </div>
+    </header>
+    <main class="tourism-main">
+    <container class="tourism-container">
+        <h1 class="tourism-title">Горнолыжные склоны</h1>
+        
+        <div class="tourism-slopes">
+            <div class="tourism-slope">
+                <h2 class="tourism-slope-name">Лесная поляна</h2>
+                <div class="tourism-slope-details">
+                    <span class="tourism-slope-difficulty tourism-slope-beginner">Начинающий</span>
+                    <span class="tourism-slope-length">800 метров</span>
+                </div>
+                <p class="tourism-slope-description">
+                    Идеальный склон для новичков с пологим уклоном и широкой трассой. 
+                    Безопасное катание в живописном лесном окружении.
+                </p>
+            </div>
+            
+            <div class="tourism-slope">
+                <h2 class="tourism-slope-name">Горный ветер</h2>
+                <div class="tourism-slope-details">
+                    <span class="tourism-slope-difficulty tourism-slope-intermediate">Средний</span>
+                    <span class="tourism-slope-length">1200 метров</span>
+                </div>
+                <p class="tourism-slope-description">
+                    Универсальный склон средней сложности с переменным рельефом. 
+                    Подходит для совершенствования техники катания.
+                </p>
+            </div>
+            
+            <div class="tourism-slope">
+                <h2 class="tourism-slope-name">Ледяной пик</h2>
+                <div class="tourism-slope-details">
+                    <span class="tourism-slope-difficulty tourism-slope-expert">Эксперт</span>
+                    <span class="tourism-slope-length">1500 метров</span>
+                </div>
+                <p class="tourism-slope-description">
+                    Сложный технический спуск с крутыми поворотами и перепадами высот. 
+                    Для опытных лыжников и сноубордистов.
+                </p>
+            </div>
+        </div>
+
+    </container>
+</main>
+</body>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="logo">
+            <a href="index.html"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+          </div>
+        <div class="social">
+          <a href="https://vk.com/kuva365"><img src="{% static 'imgs/vk.svg' %}" class="footer-icons" /></a>
+          <a href="https://t.me/s/kuva365"><img src="{% static 'imgs/tg.svg' %}" class="footer-icons" /></a>
+        </div>
+        <h4 class="footer-num">8 (800) 55 35 35</h4>
+      </div>
+    </footer>
+
+  </body>
+</html>

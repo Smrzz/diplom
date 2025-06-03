@@ -1,0 +1,356 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Новости</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <style>
+      /* Основа */
+      .news-main {
+        padding: 20px 20px;
+        background: #f8fafc;
+        min-height: 75dvh;
+      }
+
+      .section-title {
+        text-align: center;
+        color: #42718f;
+        font-size: 32px;
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      /* Сетка новостей */
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Карточка новости */
+      .news-article {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(66, 113, 143, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .news-media {
+        position: relative;
+      }
+
+      .news-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 3px solid #42718f;
+      }
+
+      .news-content {
+        padding: 20px;
+      }
+
+      .news-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* Ограничение в 1 строку */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #2c4a63;
+        font-size: 19px;
+        margin: 0 0 10px;
+        min-height: 40px;
+      }
+
+      .news-excerpt {
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Ограничение в 3 строки */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #5a6d80;
+        font-size: 15px;
+        line-height: 24px;
+        margin-bottom: 15px;
+        min-height: 30px;
+      }
+
+      .news-button {
+        background: #42718f;
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: all 0.3s;
+      }
+
+      .news-button:hover {
+        background: #365f7a;
+        box-shadow: 0 2px 8px rgba(66, 113, 143, 0.3);
+      }
+
+      /* Адаптив */
+      @media (max-width: 768px) {
+        .news-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section-title {
+          font-size: 24px;
+        }
+      }
+
+      /* Модальное окно */
+      .modal {
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 30px;
+        width: 700px;
+        height: 500px;
+        border-radius: 12px;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .modal-image-container {
+        height: 250px;
+        overflow: hidden;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .modal-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .modal-text {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      .modal-title {
+        color: #2c4a63;
+        font-size: 22px;
+        margin-bottom: 15px;
+      }
+
+      .modal-description {
+        color: #5a6d80;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      /* стой
+      стой
+      стойстойстойстой
+      стойстойстойстой
+      */
+
+      .close-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 28px;
+        color: #aaa;
+        cursor: pointer;
+        transition: color 0.2s;
+        background: none;
+        border: none;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .close-button:hover {
+        color: #42718f;
+      }
+
+      /* Полоса прокрутки */
+      .modal-text::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .modal-text::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+      }
+
+      .modal-text::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 3px;
+      }
+
+      .modal-text::-webkit-scrollbar-thumb:hover {
+        background: #a1a1a1;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <a href="{% url 'home' %}"
+            ><img src="{% static 'imgs/logo.svg' %}" class="logo"
+          /></a>
+        </div>
+        <ul class="navbar">
+          <a href="{% url 'hostels' %}">
+            <li class="nav">Гостиница</li>
+          </a>
+          <a href="{% url 'rental' %}">
+            <li class="nav">Прокат</li>
+          </a>
+          <a href="{% url 'news' %}">
+            <li class="nav">Новости</li>
+          </a>
+          <a href="https://rtsp.me/embed/h3Ykkn7E/">
+            <li class="nav">Веб-камера</li>
+          </a>
+        </ul>
+      </div>
+    </header>
+
+    <main class="news-main">
+      <h2 class="section-title">Новости курорта</h2>
+
+      <div class="news-grid">
+        {% for new in news %}
+        <article class="news-article">
+          <div class="news-media">
+            <img
+              src="{{ new.cover_image.url }}"
+              alt="{{ new.title }}"
+              class="news-image"
+            />
+          </div>
+
+          <div class="news-content">
+            <h3 class="news-title">{{ new.title }}</h3>
+            <p class="news-excerpt">{{ new.description|truncatechars:120 }}</p>
+            <button
+              class="news-button"
+              data-title="{{ new.title }}"
+              data-image="{{ new.cover_image.url }}"
+              data-description="{{ new.description }}"
+            >
+              Подробнее
+            </button>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <button class="close-button">&times;</button>
+          <div class="modal-image-container">
+            <img id="modal-image" src="" alt="" class="modal-image" />
+          </div>
+          <div class="modal-text">
+            <h3 id="modal-title" class="modal-title"></h3>
+            <p id="modal-description" class="modal-description"></p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const buttons = document.querySelectorAll(".news-button");
+        const modal = document.getElementById("modal");
+        const modalImage = document.getElementById("modal-image");
+        const modalTitle = document.getElementById("modal-title");
+        const modalDescription = document.getElementById("modal-description");
+        const closeButton = document.querySelector(".close-button");
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            modalTitle.textContent = button.dataset.title;
+            modalImage.src = button.dataset.image;
+            modalDescription.textContent = button.dataset.description;
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+          });
+        });
+
+        closeButton.addEventListener("click", () => {
+          modal.classList.remove("active");
+          document.body.style.overflow = "auto";
+        });
+
+        window.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.classList.remove("active");
+            document.body.style.overflow = "auto";
+          }
+        });
+      });
+    </script>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="logo">
+          <a href="index.html"
+            ><img src="{% static 'imgs/logo.svg' %}" class="logo"
+          /></a>
+        </div>
+        <div class="social">
+          <a href="https://vk.com/kuva365"
+            ><img src="{% static 'imgs/vk.svg' %}" class="footer-icons"
+          /></a>
+          <a href="https://t.me/s/kuva365"
+            ><img src="{% static 'imgs/tg.svg' %}" class="footer-icons"
+          /></a>
+        </div>
+        <h4 class="footer-num">8 (800) 55 35 35</h4>
+      </div>
+    </footer>
+  </body>
+</html>

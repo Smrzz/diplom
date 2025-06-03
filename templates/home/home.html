@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кува365</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <a href="{% url 'home' %}"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+        </div>
+        <ul class="navbar">
+          <a href="{% url 'hostels' %}">
+            <li class="nav">Гостиница</li>
+          </a>
+          <a href="{% url 'rental' %}">
+            <li class="nav">Прокат</li>
+          </a>
+          <a href="{% url 'news' %}">
+            <li class="nav">Новости</li>
+          </a>
+          <a href="https://rtsp.me/embed/h3Ykkn7E/">
+            <li class="nav">Веб-камера</li>
+          </a>
+        </ul>
+      </div>
+    </header>
+    <main>
+      <section class="utp">
+        <div class="main-text">
+          <h2 class="title-main">Приглашаем на сезон '24-25</h2>
+          <h3 class="subtitle-main">Успейте забронировать гостиницу сейчас!</h3>
+          <form action="{% url 'hostels' %}"><button class="main-btn" onclick=>Забронировать</button></form>
+        </div>
+      </section>
+      <section class="sovets">
+        <h1 class="sov-title">Советы и руководства</h1>
+        <div class="sovets-content">
+          <a class="selection" href="{% url 'ruk' %}">
+            <div class="selection-text">
+              <h3 class="selection-title">Подбор снаряжения</h3>
+              <h4 class="selection-subtitle">
+                Узнайте как правильно подобрать ботинки, лыжи, сноуборд и многое
+                другое!
+              </h4>
+            </div>
+          </a>
+          <a class="safety" href="{% url 'safe' %}">
+            <h4 class="safety-title">Безопасность на курорте</h4>
+          </a>
+          <a class="turi" href="{% url 'turism' %}">
+            <h4 class="turi-title">Туристические Склоны и Места</h4>
+          </a>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="logo">
+            <a href="index.html"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+          </div>
+        <div class="social">
+          <a href="https://vk.com/kuva365"><img src="{% static 'imgs/vk.svg' %}" class="footer-icons" /></a>
+          <a href="https://t.me/s/kuva365"><img src="{% static 'imgs/tg.svg' %}" class="footer-icons" /></a>
+        </div>
+        <h4 class="footer-num">8 (800) 55 35 35</h4>
+      </div>
+    </footer>
+  </body>
+</html>

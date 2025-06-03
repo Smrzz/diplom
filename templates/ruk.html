@@ -1,0 +1,165 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кува365</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <a href="{% url 'home' %}"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+        </div>
+        <ul class="navbar">
+          <a href="{% url 'hostels' %}">
+            <li class="nav">Гостиница</li>
+          </a>
+          <a href="{% url 'rental' %}">
+            <li class="nav">Прокат</li>
+          </a>
+          <a href="{% url 'news' %}">
+            <li class="nav">Новости</li>
+          </a>
+          <a href="https://rtsp.me/embed/h3Ykkn7E/">
+            <li class="nav">Веб-камера</li>
+          </a>
+        </ul>
+      </div>
+    </header>
+    <main class="guide-main">
+    <section class="winter-guide">
+      
+      <div class="wg-equipment-grid">
+          <div class="wg-equipment-card">
+              <img src="{% static 'imgs/i.png' %}" alt="Горные лыжи" class="wg-equipment-img">
+              <h3 class="wg-subsection-title">Горные лыжи</h3>
+              <p>Как правильно выбрать лыжи по росту, весу и стилю катания</p>
+              <a href="#wg-skis" class="wg-button">Подробнее</a>
+          </div>
+          
+          <div class="wg-equipment-card">
+              <img src="{% static 'imgs/snow.jpg' %}" alt="Сноуборд" class="wg-equipment-img">
+              <h3 class="wg-subsection-title">Сноуборды</h3>
+              <p>Руководство по выбору доски, ботинок и креплений</p>
+              <a href="#wg-snowboard" class="wg-button">Подробнее</a>
+          </div>
+          
+          <div class="wg-equipment-card">
+              <img src="{% static 'imgs/RCZcONm3KDg.jpg' %}" alt="Экипировка" class="wg-equipment-img">
+              <h3 class="wg-subsection-title">Одежда и защита</h3>
+              <p>Как оставаться в тепле и безопасности на склоне</p>
+              <a href="#wg-clothing" class="wg-button">Подробнее</a>
+          </div>
+      </div>
+      
+      <section id="wg-skis">
+          <h2 class="wg-section-title">Горные лыжи: как выбрать</h2>
+          
+          <h3 class="wg-subsection-title">1. Выбор лыж</h3>
+          <p><strong>Длина:</strong></p>
+          <ul class="wg-feature-list">
+              <li><strong>Новички:</strong> рост – 10–20 см</li>
+              <li><strong>Средний уровень:</strong> рост – 5–10 см</li>
+              <li><strong>Эксперты:</strong> рост ±5 см (или длиннее для фрирайда)</li>
+          </ul>
+          
+          <p><strong>Ширина талии:</strong></p>
+          <ul class="wg-feature-list">
+              <li><strong>Узкие (65–75 мм):</strong> для подготовленных трасс (карвинг)</li>
+              <li><strong>Средние (75–85 мм):</strong> универсальные лыжи</li>
+              <li><strong>Широкие (85+ мм):</strong> для целины и фрирайда</li>
+          </ul>
+          
+          <div class="wg-tip-box">
+              <p>Совет: Новичкам лучше выбирать лыжи с рокером в носке — они прощают ошибки и легче входят в повороты.</p>
+          </div>
+          
+          <h3 class="wg-subsection-title">2. Ботинки</h3>
+          <p><strong>Жесткость (Flex):</strong></p>
+          <ul class="wg-feature-list">
+              <li><strong>Мягкие (50–80):</strong> для новичков и детей</li>
+              <li><strong>Средние (80–100):</strong> для уверенных лыжников</li>
+              <li><strong>Жесткие (100–130+):</strong> для экспертов</li>
+          </ul>
+      </section>
+      
+      <section id="wg-snowboard">
+          <h2 class="wg-section-title">Сноуборды: как выбрать</h2>
+          
+          <h3 class="wg-subsection-title">1. Выбор доски</h3>
+          <p><strong>Длина:</strong></p>
+          <ul class="wg-feature-list">
+              <li><strong>Новички:</strong> до подбородка</li>
+              <li><strong>Универсальные:</strong> между подбородком и носом</li>
+              <li><strong>Фрирайд:</strong> до лба или выше</li>
+          </ul>
+          
+          <h3 class="wg-subsection-title">2. Ботинки</h3>
+          <p><strong>Типы:</strong></p>
+          <ul class="wg-feature-list">
+              <li><strong>Soft (мягкие):</strong> для фристайла и новичков</li>
+              <li><strong>Medium (средние):</strong> универсальные</li>
+              <li><strong>Hard (жесткие):</strong> для карвинга и скорости</li>
+          </ul>
+          
+          <div class="wg-tip-box">
+              <p>Совет: При выборе сноуборда учитывайте свой вес — более тяжелым райдерам нужна более длинная и жесткая доска.</p>
+          </div>
+          
+          <h3 class="wg-subsection-title">Сравнение горных лыж и сноубордов</h3>
+          <table class="wg-comparison-table">
+              <tr>
+                  <th>Критерий</th>
+                  <th>Горные лыжи</th>
+                  <th>Сноуборд</th>
+              </tr>
+              <tr>
+                  <td>Сложность обучения</td>
+                  <td>Легче начать, сложнее совершенствоваться</td>
+                  <td>Сложнее начать, легче прогрессировать</td>
+              </tr>
+              <tr>
+                  <td>Универсальность</td>
+                  <td>Лучше на жестких склонах</td>
+                  <td>Лучше в пухлом снегу</td>
+              </tr>
+          </table>
+      </section>
+      
+      <section id="wg-clothing">
+          <h2 class="wg-section-title">Одежда и защита</h2>
+          
+          <h3 class="wg-subsection-title">1. Термобелье</h3>
+          <ul class="wg-feature-list">
+              <li><strong>Материал:</strong> синтетика или шерсть мериноса (не хлопок!)</li>
+              <li><strong>Плотность:</strong> выбирайте по погоде (тонкое, среднее, теплое)</li>
+          </ul>
+          
+          <h3 class="wg-subsection-title">2. Защитное снаряжение</h3>
+          <ul class="wg-feature-list">
+              <li><strong>Шлем — обязателен!</strong> Должен плотно сидеть, не болтаться</li>
+              <li><strong>Очки:</strong> с UV-фильтром (желтые для облачности, темные для солнца)</li>
+          </ul>
+      </section>
+  
+
+    </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="logo">
+            <a href="index.html"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+          </div>
+        <div class="social">
+          <a href="https://vk.com/kuva365"><img src="{% static 'imgs/vk.svg' %}" class="footer-icons" /></a>
+          <a href="https://t.me/s/kuva365"><img src="{% static 'imgs/tg.svg' %}" class="footer-icons" /></a>
+        </div>
+        <h4 class="footer-num">8 (800) 55 35 35</h4>
+      </div>
+    </footer>
+  </body>
+</html>

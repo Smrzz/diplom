@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кува365</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="{% static 'js/pr.js' %}"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <a href="{% url 'home' %}">
+            <img src="{% static 'imgs/logo.svg' %}" class="logo" />
+          </a>
+        </div>
+        <ul class="navbar">
+          <a href="{% url 'hostels' %}"><li class="nav">Гостиница</li></a>
+          <a href="{% url 'rental' %}"><li class="nav">Прокат</li></a>
+          <a href="{% url 'news' %}"><li class="nav">Новости</li></a>
+          <a href="https://rtsp.me/embed/h3Ykkn7E/"><li class="nav">Веб-камера</li></a>
+        </ul>
+      </div>
+    </header>
+
+    <main class="gast-container">
+      <section class="gast-main">
+        <div class="gast-blocks">
+          <!-- Одноместный -->
+          <div class="gast-block">
+            <img src="{% static 'imgs/1mest 1.png' %}" class="gast-pic" />
+            <div class="text-gast">
+              <h3 class="title-gast">Одноместный номер</h3>
+              <h2 class="subtitle-gast">В будние дни 2000р/сутки <br />В праздничные дни 3000р/сутки</h2>
+              <button class="btn-gast" onclick="openForm('Одноместный')">Забронировать</button>
+            </div>
+          </div>
+
+          <!-- Двухместный -->
+          <div class="gast-block">
+            <img src="{% static 'imgs/2mest.jpg' %}" class="gast-pic" />
+            <div class="text-gast">
+              <h3 class="title-gast">Двухместный номер</h3>
+              <h2 class="subtitle-gast">В будние дни 3000р/сутки <br />В праздничные дни 4000р/сутки</h2>
+              <button class="btn-gast" onclick="openForm('Двухместный')">Забронировать</button>
+            </div>
+          </div>
+
+          <!-- Четырёхместный -->
+          <div class="gast-block">
+            <img src="{% static 'imgs/3mest.jpg' %}" class="gast-pic" />
+            <div class="text-gast">
+              <h3 class="title-gast">Четырёхместный номер</h3>
+              <h2 class="subtitle-gast">В будние дни 5000р/сутки <br />В праздничные дни 7000р/сутки</h2>
+              <button class="btn-gast" onclick="openForm('Четырёхместный')">Забронировать</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="logo">
+          <a href="{% url 'home' %}">
+            <img src="{% static 'imgs/logo.svg' %}" class="logo" />
+          </a>
+        </div>
+        <div class="social">
+          <a href="https://vk.com/kuva365"><img src="{% static 'imgs/vk.svg' %}" class="footer-icons" /></a>
+          <a href="https://t.me/s/kuva365"><img src="{% static 'imgs/tg.svg' %}" class="footer-icons" /></a>
+        </div>
+        <h4 class="footer-num">8 (800) 55 35 35</h4>
+      </div>
+    </footer>
+
+    <!-- 🧾 МОДАЛЬНОЕ ОКНО -->
+  <div class="form-popup" id="bookingPopup">
+    <form method="post" action="{% url 'book_room' %}" class="form-container">
+      <button type="button" class="close-btn" onclick="closeForm()" aria-label="Закрыть">✖</button>
+      <h2>Бронирование номера</h2>
+      {% csrf_token %}
+      <input type="hidden" name="room_type" id="popupRoomType" />
+
+      <div class="form-group">
+        <label for="name"><b>Имя</b></label>
+        <input type="name" name="name" id="name" placeholder="Ваше имя" required/>
+        <div class="error-message">Пожалуйста, введите ваше имя</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone"><b>Телефон</b></label>
+        <input type="tel" name="phone" id="phone" placeholder="+7 (___) ___-__-__" required pattern="\+7\s?[\(]{0,1}[0-9]{3}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" />
+        <div class="error-message">Пожалуйста, введите корректный номер телефона</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="popupCheckIn"><b>Дата заезда</b></label>
+        <input type="date" name="check_in" id="popupCheckIn" required min="{{ today|date:'Y-m-d' }}" />
+        <div class="error-message">Пожалуйста, выберите дату заезда</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="popupCheckOut"><b>Дата выезда</b></label>
+        <input type="date" name="check_out" id="popupCheckOut" required />
+        <div class="error-message">Пожалуйста, выберите дату выезда</div>
+      </div>
+      
+      <button type="submit" class="btn">Забронировать номер</button>
+    </form>
+  </div>
+
+    <!-- 📜 JS -->
+    <script>
+      const unavailableDates = {{ unavailable_json|safe }};
+      const today = "{{ today|date:'Y-m-d' }}";
+
+      function blockDates(roomType, checkInInput, checkOutInput) {
+        const disabledDates = new Set(unavailableDates[roomType] || []);
+
+        function disable(input) {
+          const copy = input.cloneNode();
+          input.parentNode.replaceChild(copy, input);
+          copy.addEventListener("input", () => {
+            if (disabledDates.has(copy.value)) {
+              alert("Эта дата уже занята");
+              copy.value = "";
+            }
+          });
+        }
+
+        disable(checkInInput);
+        disable(checkOutInput);
+      }
+
+      function openForm(roomType) {
+        const popup = document.getElementById("bookingPopup");
+        popup.classList.add("active");
+        document.getElementById("popupRoomType").value = roomType;
+
+        const checkIn = document.getElementById("popupCheckIn");
+        const checkOut = document.getElementById("popupCheckOut");
+        blockDates(roomType, checkIn, checkOut);
+      }
+
+      function closeForm() {
+        document.getElementById("bookingPopup").classList.remove("active");
+      }
+
+      window.addEventListener("click", function (e) {
+        const popup = document.getElementById("bookingPopup");
+        if (e.target === popup) {
+          closeForm();
+        }
+      });
+      // Маска для телефона
+      document.getElementById('phone').addEventListener('input', function(e) {
+          let value = e.target.value.replace(/\D/g, '');
+
+          // Если номер начинается с 8 или 7, убираем первую цифру (оставляем только 10 цифр после кода страны)
+          if (value.startsWith('8')) value = value.slice(1);
+          if (value.startsWith('7')) value = value.slice(1);
+
+          value = value.slice(0, 10); // максимум 10 цифр после кода страны
+
+          let masked = '+7 ';
+          if (value.length > 0) masked += '(' + value.substring(0, 3);
+          if (value.length >= 4) masked += ') ' + value.substring(3, 6);
+          else if (value.length > 3) masked += ') ';
+          if (value.length >= 7) masked += '-' + value.substring(6, 8);
+          else if (value.length > 6) masked += '-' + value.substring(6, 8);
+          if (value.length >= 9) masked += '-' + value.substring(8, 10);
+
+          e.target.value = masked.trim();
+      });
+
+
+    </script>
+    
+  </body>
+</html>

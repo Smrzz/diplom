@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кува365</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <a href="{% url 'home' %}"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+        </div>
+        <ul class="navbar">
+          <a href="{% url 'hostels' %}">
+            <li class="nav">Гостиница</li>
+          </a>
+          <a href="{% url 'rental' %}">
+            <li class="nav">Прокат</li>
+          </a>
+          <a href="{% url 'news' %}">
+            <li class="nav">Новости</li>
+          </a>
+          <a href="https://rtsp.me/embed/h3Ykkn7E/">
+            <li class="nav">Веб-камера</li>
+          </a>
+        </ul>
+      </div>
+    </header>
+    <main class="sg-main">
+    <section class="safety-guide">
+    <div class="sg-header">
+        <div class="sg-header-content">
+            <h1 class="sg-title">Безопасность на курорте Кувандык365</h1>
+            <p class="sg-subtitle">Правила и рекомендации для вашей безопасности</p>
+        </div>
+    </div>
+    
+    <section class="sg-section">
+        <h2 class="sg-section-title">Основные правила эксплуатации канатной дороги</h2>
+        
+        <div class="sg-image-grid">
+            <div class="sg-image-card">
+                <img src="{% static 'imgs/bkd-reb.jpg' %}" class="sg-image-placeholder">
+                <div class="sg-image-caption">Правильная посадка на подъемник</div>
+            </div>
+            <div class="sg-image-card">
+                <img src="{% static 'imgs/znak.jpg' %}" class="sg-image-placeholder">
+                <div class="sg-image-caption">Обращайте внимание на знаки</div>
+            </div>
+        </div>
+        
+        <ul class="sg-list">
+            <li><strong>1.1</strong> Оборудование и подвижной состав канатной дороги является источником повышенной опасности.</li>
+            <li><strong>1.2</strong> Приобретение персональной карты (ски-пасса) означает принятие правил.</li>
+            <li><strong>1.3</strong> Нарушение правил влечет правовую ответственность и возможное удаление с территории без компенсации.</li>
+            <li><strong>1.4</strong> Канатная дорога предназначена только для перевозки лыжников и сноубордистов в стоячем положении.</li>
+            <li><strong>1.5</strong> Подвижной состав рассчитан на 2 пассажиров.</li>
+            <li><strong>1.6</strong> Дорога движется без остановок на станциях.</li>
+            <li><strong>1.7</strong> Выполняйте требования знаков на станциях и трассе.</li>
+        </ul>
+        
+        <div class="sg-warning">
+            <strong>1.8</strong> Беременные женщины (особенно в последнем триместре) должны самостоятельно оценивать риски.
+        </div>
+        
+        <ul class="sg-list">
+            <li><strong>1.9</strong> При аварийной остановке следуйте указаниям персонала.</li>
+            <li><strong>1.10</strong> Дети до 5 лет допускаются только с лыжами на ногах вместе со взрослым.</li>
+            <li><strong>1.11</strong> Претензии рассматриваются директором или начальником канатной дороги.</li>
+        </ul>
+    </section>
+    
+    <section class="sg-section">
+        <h2 class="sg-section-title">Посадка и подъём</h2>
+        
+        <div class="sg-image-grid">
+            <div class="sg-image-card">
+                <img class="sg-image-placeholder" src="{% static 'imgs/posadka.jpg' %}">
+
+            
+                <div class="sg-image-caption">Правильная позиция при посадке</div>
+            </div>
+            <div class="sg-image-card">
+                <img src="{% static 'imgs/sreb.jpg' %}" class="sg-image-placeholder">
+ 
+                <div class="sg-image-caption">Безопасность детей - ответственность взрослых</div>
+            </div>
+        </div>
+        
+        <ul class="sg-list">
+            <li><strong>2.1</strong> Соблюдайте очередь при посадке.</li>
+            <li><strong>2.2</strong> Посадка только в присутствии дежурного в обозначенном месте.</li>
+            <li><strong>2.3</strong> Сноубордисты должны освободить одну ногу от крепления перед посадкой.</li>
+            <li><strong>2.4</strong> Держитесь за тягу траверсы одной рукой, лыжные палки - в другой.</li>
+            <li><strong>2.5</strong> Взрослые несут полную ответственность за детей до 14 лет.</li>
+            <li><strong>2.6</strong> Посадка разрешена только у знака «Место посадки».</li>
+            <li><strong>2.7</strong> Траверсы подаются дежурным по просьбе.</li>
+        </ul>
+        
+        <h3 class="sg-subsection-title">Высадка</h3>
+        
+        <div class="sg-note">
+            При высадке будьте внимательны и быстро освобождайте площадку
+        </div>
+        
+        <ul class="sg-list">
+            <li><strong>2.8</strong> Плавно отпустите траверсу и быстро освободите площадку высадки.</li>
+            <li><strong>2.9</strong> При падении отпустите траверсу и сместитесь в сторону от трассы.</li>
+            <li><strong>2.10</strong> В экстренных ситуациях выполняйте требования персонала.</li>
+            <li><strong>2.11</strong> О любых нештатных ситуациях немедленно сообщайте персоналу.</li>
+        </ul>
+    </section>
+    
+    <section class="sg-section">
+        <h2 class="sg-section-title">На ГЛЦ «Кувандык365» не разрешается</h2>
+        
+        <div class="sg-warning">
+            Нарушение этих правил создает опасность для вас и окружающих!
+        </div>
+
+        
+        <ul class="sg-list">
+            <li><strong>3.1</strong> Посадка вне зоны «Место посадки».</li>
+            <li><strong>3.2</strong> Промежуточная высадка между станциями.</li>
+            <li><strong>3.3</strong> Отпускать траверсу до окончания подъёма.</li>
+            <li><strong>3.4</strong> Задерживаться на месте высадки.</li>
+            <li><strong>3.5</strong> Отклоняться от оси линии подъема.</li>
+            <li><strong>3.6</strong> Пересекать места посадки и линию подъёма.</li>
+            <li><strong>3.7</strong> Производить спуск вниз по линии подъёма.</li>
+            <li><strong>3.8</strong> Провозить маленьких детей на руках, на шее.</li>
+            <li><strong>3.9</strong> Употреблять спиртные напитки и находиться в нетрезвом виде.</li>
+            <li><strong>3.10</strong> Влезать на оборудование и металлоконструкции.</li>
+            <li><strong>3.11</strong> Курить на канатной дороге и станциях.</li>
+            <li><strong>3.12</strong> Провозить багаж весом более 15 кг.</li>
+            <li><strong>3.13</strong> Провозить взрывчатые, огнеопасные, ядовитые вещества.</li>
+            <li><strong>3.14</strong> Нарушать общественный порядок.</li>
+            <li><strong>3.15</strong> Подъём пассажиров после окончания работы ГЛЦ.</li>
+            <li><strong>3.16</strong> Катание на снегоходах во время работы подъёмника.</li>
+        </ul>
+    </section>
+    
+    <section class="sg-section">
+        <h2 class="sg-section-title">Правила катания на сноутюбинге</h2>
+        
+        <div class="sg-image-grid">
+            <div class="sg-image-card">
+                <img src="{% static 'imgs/vatr-tr.jpg' %}" class="sg-image-placeholder">
+                <div class="sg-image-caption">Только на специальных трассах</div>
+            </div>
+            <div class="sg-image-card">
+                <img src="{% static 'imgs/deti.jpg' %}" class="sg-image-placeholder">
+                <div class="sg-image-caption">Дети должны быть со взрослыми!</div>
+                </div>
+        </div>
+        
+        <div class="sg-note">
+            Сноутюбинг неуправляем и развивает высокую скорость - соблюдайте осторожность!
+        </div>
+        
+        <h3 class="sg-subsection-title">Организация подъема</h3>
+        <ul class="sg-list">
+            <li><strong>4.1</strong> Для подъема используется специальный подъемник.</li>
+            <li><strong>4.2</strong> Очередь не должна заходить в зону катания.</li>
+            <li><strong>4.3</strong> Следуйте указаниям дежурного.</li>
+            <li><strong>4.4</strong> На одном тюбе - один человек.</li>
+            <li><strong>4.5</strong> Допускается подъем взрослого с ребенком до 6 лет.</li>
+            <li><strong>4.6</strong> На одной рукояти - один тюбинг.</li>
+        </ul>
+        
+        <h3 class="sg-subsection-title">Не разрешается</h3>
+        <ul class="sg-list">
+            <li><strong>4.7</strong> Кататься на лыжах, сноуборде и др. на тюбинговой трассе.</li>
+            <li><strong>4.8</strong> Выходить в зону катания.</li>
+            <li><strong>4.9</strong> Кататься в горнолыжных ботинках.</li>
+            <li><strong>4.10</strong> Иметь острые предметы в карманах.</li>
+            <li><strong>4.11</strong> Покидать тюбинг во время спуска.</li>
+            <li><strong>4.12</strong> Кататься стоя.</li>
+            <li><strong>4.13</strong> Ставить ноги внутрь тюбинга.</li>
+            <li><strong>4.14</strong> Кататься вдвоем с ребенком старше 6 лет.</li>
+            <li><strong>4.15</strong> Находиться в зоне катания после спуска.</li>
+            <li><strong>4.16</strong> Катание двух и более тюбингов на одной трассе.</li>
+            <li><strong>4.17</strong> Катание в состоянии опьянения.</li>
+        </ul>
+    </section>
+</body>
+          
+</section>
+</main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="logo">
+            <a href="index.html"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
+          </div>
+        <div class="social">
+          <a href="https://vk.com/kuva365"><img src="{% static 'imgs/vk.svg' %}" class="footer-icons" /></a>
+          <a href="https://t.me/s/kuva365"><img src="{% static 'imgs/tg.svg' %}" class="footer-icons" /></a>
+        </div>
+        <h4 class="footer-num">8 (800) 55 35 35</h4>
+      </div>
+    </footer>
+
+  </body>
+</html>
