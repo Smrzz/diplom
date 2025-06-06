@@ -77,56 +77,205 @@
     </footer>
 
     <!-- 🧾 МОДАЛЬНОЕ ОКНО -->
-  <div class="form-popup" id="bookingPopup">
-    <form method="post" action="{% url 'book_room' %}" class="form-container">
-      <button type="button" class="close-btn" onclick="closeForm()" aria-label="Закрыть">✖</button>
-      <h2>Бронирование номера</h2>
-      {% csrf_token %}
-      <input type="hidden" name="room_type" id="popupRoomType" />
+    <div id="bookingPopup" class="form-popup">
+      <form method="post" action="{% url 'book_room' %}" class="form-container">
+        <button type="button" class="close-btn" onclick="closeForm()" aria-label="Закрыть">✖</button>
+        <h2>Бронирование номера</h2>
+        {% csrf_token %}
+        <input type="hidden" name="room_type" id="popupRoomType" />
 
-      <div class="form-group">
-        <label for="name"><b>Имя</b></label>
-        <input type="name" name="name" id="name" placeholder="Ваше имя" required/>
-        <div class="error-message">Пожалуйста, введите ваше имя</div>
-      </div>
-      
-      <div class="form-group">
-        <label for="phone"><b>Телефон</b></label>
-        <input type="tel" name="phone" id="phone" placeholder="+7 (___) ___-__-__" required pattern="\+7\s?[\(]{0,1}[0-9]{3}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" />
-        <div class="error-message">Пожалуйста, введите корректный номер телефона</div>
-      </div>
-      
-      <div class="form-group">
-        <label for="popupCheckIn"><b>Дата заезда</b></label>
-        <input type="date" name="check_in" id="popupCheckIn" required min="{{ today|date:'Y-m-d' }}" />
-        <div class="error-message">Пожалуйста, выберите дату заезда</div>
-      </div>
-      
-      <div class="form-group">
-        <label for="popupCheckOut"><b>Дата выезда</b></label>
-        <input type="date" name="check_out" id="popupCheckOut" required />
-        <div class="error-message">Пожалуйста, выберите дату выезда</div>
-      </div>
-      
-      <button type="submit" class="btn">Забронировать номер</button>
-    </form>
-  </div>
+        <div class="form-group">
+          <label for="id_name"><b>Имя</b></label>
+          {{ form.name }}
+          {% if form.name.errors %}
+          <div class="error-message">{{ form.name.errors.0 }}</div>
+          {% endif %}
+        </div>
+        
+        <div class="form-group">
+          <label for="id_phone"><b>Телефон</b></label>
+          {{ form.phone }}
+          {% if form.phone.errors %}
+          <div class="error-message">{{ form.phone.errors.0 }}</div>
+          {% endif %}
+        </div>
+        
+        <div class="form-group">
+          <label for="id_check_in"><b>Дата заезда</b></label>
+          {{ form.check_in }}
+          {% if form.check_in.errors %}
+          <div class="error-message">{{ form.check_in.errors.0 }}</div>
+          {% endif %}
+        </div>
+        
+        <div class="form-group">
+          <label for="id_check_out"><b>Дата выезда</b></label>
+          {{ form.check_out }}
+          {% if form.check_out.errors %}
+          <div class="error-message">{{ form.check_out.errors.0 }}</div>
+          {% endif %}
+        </div>
+        
+        {% if form.non_field_errors %}
+        <div class="error-message">
+          {% for error in form.non_field_errors %}
+          {{ error }}
+          {% endfor %}
+        </div>
+        {% endif %}
+        
+        <button type="submit" class="btn">Забронировать номер</button>
+      </form>
+    </div>
 
-    <!-- 📜 JS -->
+    <!--  JS -->
     <script>
       const unavailableDates = {{ unavailable_json|safe }};
       const today = "{{ today|date:'Y-m-d' }}";
+      
+      console.log('Данные о занятых датах:', unavailableDates);
+      console.log('Сегодняшняя дата:', today);
+
+      function isDateInPeriod(date, period) {
+        const checkDate = new Date(date);
+        const startDate = new Date(period.start);
+        const endDate = new Date(period.end);
+        return checkDate >= startDate && checkDate < endDate;
+      }
+
+      function isPeriodAvailable(startDate, endDate, periods) {
+        const checkStart = new Date(startDate);
+        const checkEnd = new Date(endDate);
+        
+        for (const period of periods) {
+          const periodStart = new Date(period.start);
+          const periodEnd = new Date(period.end);
+          
+          // Проверяем пересечение периодов
+          if (checkStart < periodEnd && checkEnd > periodStart) {
+            return false;
+          }
+        }
+        return true;
+      }
 
       function blockDates(roomType, checkInInput, checkOutInput) {
-        const disabledDates = new Set(unavailableDates[roomType] || []);
+        const disabledDatesByRoom = unavailableDates[roomType] || {};
+        console.log(`Занятые даты для ${roomType}:`, disabledDatesByRoom);
 
         function disable(input) {
-          const copy = input.cloneNode();
+          const copy = input.cloneNode(true); // Клонируем со всеми атрибутами
+          copy.value = input.value;
           input.parentNode.replaceChild(copy, input);
+          
           copy.addEventListener("input", () => {
-            if (disabledDates.has(copy.value)) {
-              alert("Эта дата уже занята");
+            console.log('Выбрана дата:', copy.value);
+            
+            // Проверяем, что дата не в прошлом
+            const selectedDate = new Date(copy.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (selectedDate < today) {
+              alert("Нельзя выбрать дату в прошлом");
               copy.value = "";
+              return;
+            }
+
+            if (input === checkInInput) {
+              // Для даты заезда проверяем все номера
+              let availableRooms = [];
+              
+              // Получаем список всех номеров данного типа
+              for (const roomNumber in disabledDatesByRoom) {
+                const periods = disabledDatesByRoom[roomNumber];
+                let isRoomAvailable = true;
+                
+                // Если у номера есть периоды бронирования, проверяем их
+                if (periods && periods.length > 0) {
+                  for (const period of periods) {
+                    if (isDateInPeriod(copy.value, period)) {
+                      console.log(`Дата ${copy.value} занята в номере ${roomNumber}`);
+                      isRoomAvailable = false;
+                      break;
+                    }
+                  }
+                }
+                
+                if (isRoomAvailable) {
+                  availableRooms.push(roomNumber);
+                }
+              }
+              
+              console.log(`Доступные номера для даты ${copy.value}:`, availableRooms);
+              
+              // Если есть хотя бы один свободный номер, позволяем выбрать дату
+              if (availableRooms.length > 0) {
+                console.log(`Дата ${copy.value} доступна для заезда в номерах: ${availableRooms.join(', ')}`);
+                // Обновляем значение в оригинальном поле
+                checkInInput.value = copy.value;
+                return;
+              }
+              
+              alert("Эта дата занята во всех номерах данного типа");
+              copy.value = "";
+              checkInInput.value = "";
+            } else {
+              // Для даты выезда проверяем период между заездом и выездом
+              const checkInValue = checkInInput.value;
+              console.log('Значение даты заезда:', checkInValue);
+              
+              if (!checkInValue) {
+                alert("Сначала выберите дату заезда");
+                copy.value = "";
+                return;
+              }
+
+              const checkIn = new Date(checkInValue);
+              const checkOut = new Date(copy.value);
+              
+              if (checkOut <= checkIn) {
+                alert("Дата выезда должна быть позже даты заезда");
+                copy.value = "";
+                return;
+              }
+
+              let availableRooms = [];
+              
+              // Проверяем каждый номер
+              for (const roomNumber in disabledDatesByRoom) {
+                const periods = disabledDatesByRoom[roomNumber];
+                let isRoomAvailable = true;
+                
+                // Если у номера есть периоды бронирования, проверяем их
+                if (periods && periods.length > 0) {
+                  if (!isPeriodAvailable(
+                    checkIn.toISOString().split('T')[0],
+                    checkOut.toISOString().split('T')[0],
+                    periods
+                  )) {
+                    isRoomAvailable = false;
+                  }
+                }
+                
+                if (isRoomAvailable) {
+                  availableRooms.push(roomNumber);
+                }
+              }
+              
+              console.log(`Доступные номера для периода с ${checkIn.toISOString().split('T')[0]} по ${checkOut.toISOString().split('T')[0]}:`, availableRooms);
+              
+              // Если есть хотя бы один свободный номер, позволяем выбрать дату
+              if (availableRooms.length > 0) {
+                console.log(`Период доступен в номерах: ${availableRooms.join(', ')}`);
+                // Обновляем значение в оригинальном поле
+                checkOutInput.value = copy.value;
+                return;
+              }
+              
+              alert("Выбранный период занят во всех номерах данного типа");
+              copy.value = "";
+              checkOutInput.value = "";
             }
           });
         }
@@ -140,8 +289,13 @@
         popup.classList.add("active");
         document.getElementById("popupRoomType").value = roomType;
 
-        const checkIn = document.getElementById("popupCheckIn");
-        const checkOut = document.getElementById("popupCheckOut");
+        const checkIn = document.getElementById("id_check_in");
+        const checkOut = document.getElementById("id_check_out");
+        
+        // Очищаем поля при открытии формы
+        checkIn.value = "";
+        checkOut.value = "";
+        
         blockDates(roomType, checkIn, checkOut);
       }
 
@@ -155,8 +309,9 @@
           closeForm();
         }
       });
+
       // Маска для телефона
-      document.getElementById('phone').addEventListener('input', function(e) {
+      document.getElementById('id_phone').addEventListener('input', function(e) {
           let value = e.target.value.replace(/\D/g, '');
 
           // Если номер начинается с 8 или 7, убираем первую цифру (оставляем только 10 цифр после кода страны)
@@ -175,8 +330,6 @@
 
           e.target.value = masked.trim();
       });
-
-
     </script>
     
   </body>

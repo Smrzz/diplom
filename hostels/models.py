@@ -13,10 +13,27 @@ class Room(models.Model):
         return f"{self.room_type} №{self.number}"
 
     def is_available(self, check_in, check_out):
-        return not self.bookings.filter(
-            check_in__lt=check_out,
-            check_out__gt=check_in
-        ).exists()
+        """
+        Проверяет, доступна ли комната на указанные даты
+        """
+        # Проверяем все брони для этой комнаты
+        overlapping_bookings = Booking.objects.filter(
+            room=self,
+            check_in__lt=check_out,  # Дата заезда существующей брони раньше даты выезда новой
+            check_out__gt=check_in   # Дата выезда существующей брони позже даты заезда новой
+        )
+        return not overlapping_bookings.exists()
+
+    @classmethod
+    def get_available_room(cls, room_type, check_in, check_out):
+        """
+        Находит первую доступную комнату указанного типа на указанные даты
+        """
+        rooms = cls.objects.filter(room_type=room_type)
+        for room in rooms:
+            if room.is_available(check_in, check_out):
+                return room
+        return None
     
     class Meta:
         verbose_name = 'комната'

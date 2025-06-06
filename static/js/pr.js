@@ -1,31 +1,27 @@
-function openForm(formId) {
-    const form = document.getElementById(formId);
-    form.style.display = "block";
-    
-   
-    form.style.position = "fixed";
-    form.style.top = "50%";
-    form.style.left = "50%";
-    form.style.transform = "translate(-50%, -50%)";
-    
+function openForm(roomType) {
+    const popup = document.getElementById("bookingPopup");
+    if (popup) {
+        popup.classList.add("active");
+        document.getElementById("popupRoomType").value = roomType;
 
-    setTimeout(() => {
-        document.addEventListener('click', closeFormOnClickOutside);
-    }, 0); 
+        const checkIn = document.getElementById("popupCheckIn");
+        const checkOut = document.getElementById("popupCheckOut");
+        if (checkIn && checkOut) {
+            blockDates(roomType, checkIn, checkOut);
+        }
+    }
 }
 
-function closeForm(formId) {
-    const form = document.getElementById(formId);
-    form.style.display = "none";
-    document.removeEventListener('click', closeFormOnClickOutside);
+function closeForm() {
+    const popup = document.getElementById("bookingPopup");
+    if (popup) {
+        popup.classList.remove("active");
+    }
 }
 
 function closeFormOnClickOutside(e) {
-    const forms = document.querySelectorAll('.form-popup');
-    
-    forms.forEach((form) => {
-        if (form.style.display === "block" && !form.contains(e.target) && !e.target.closest('.btn-gast')) {
-            form.style.display = "none"; 
-        }
-    });
+    const popup = document.getElementById("bookingPopup");
+    if (popup && e.target === popup) {
+        closeForm();
+    }
 }

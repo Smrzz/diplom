@@ -10,10 +10,11 @@ class BookingForm(forms.ModelForm):
     ]
 
     room_type = forms.ChoiceField(choices=ROOM_TYPE_CHOICES, label="Тип номера")
+    name = forms.CharField(max_length=256, label="Имя", required=True)
 
     class Meta:
         model = Booking
-        fields = ['phone', 'check_in', 'check_out']
+        fields = ['name', 'phone', 'check_in', 'check_out']
         widgets = {
             'check_in': forms.DateInput(attrs={'type': 'date'}),
             'check_out': forms.DateInput(attrs={'type': 'date'}),
