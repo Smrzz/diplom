@@ -13,19 +13,16 @@
         <div class="logo">
           <a href="{% url 'home' %}"><img src="{% static 'imgs/logo.svg' %}" class="logo" /></a>
         </div>
+        <div class="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <ul class="navbar">
-          <a href="{% url 'hostels' %}">
-            <li class="nav">Гостиница</li>
-          </a>
-          <a href="{% url 'rental' %}">
-            <li class="nav">Прокат</li>
-          </a>
-          <a href="{% url 'news' %}">
-            <li class="nav">Новости</li>
-          </a>
-          <a href="https://rtsp.me/embed/h3Ykkn7E/">
-            <li class="nav">Веб-камера</li>
-          </a>
+          <li class="nav"><a href="{% url 'hostels' %}">Гостиница</a></li>
+          <li class="nav"><a href="{% url 'rental' %}">Прокат</a></li>
+          <li class="nav"><a href="{% url 'news' %}">Новости</a></li>
+          <li class="nav"><a href="https://rtsp.me/embed/h3Ykkn7E/">Веб-камера</a></li>
         </ul>
       </div>
     </header>
@@ -70,5 +67,11 @@
         <h4 class="footer-num">8 (800) 55 35 35</h4>
       </div>
     </footer>
+    <script>
+        document.querySelector('.burger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.navbar').classList.toggle('open');
+        });
+    </script>
   </body>
 </html>
