@@ -1090,65 +1090,8 @@ footer {
     font-weight: 700;
 }
 
-.tourism-slopes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
 
-.tourism-slope {
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 25px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    border-left: 4px solid #42718F;
-}
 
-.tourism-slope-name {
-    font-size: 22px;
-    color: #42718F;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.tourism-slope-details {
-    margin-bottom: 15px;
-}
-
-.tourism-slope-difficulty {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    margin-right: 10px;
-}
-
-.tourism-slope-beginner {
-    background: #e8f8f5;
-    color: #1abc9c;
-}
-
-.tourism-slope-intermediate {
-    background: #e8f4fc;
-    color: #3498db;
-}
-
-.tourism-slope-expert {
-    background: #f9ebea;
-    color: #e74c3c;
-}
-
-.tourism-slope-length {
-    color: #7f8c8d;
-    font-size: 14px;
-}
-
-.tourism-slope-description {
-    color: #34495e;
-    line-height: 1.5;
-    font-size: 15px;
-}
 
 .resort-map-container {
     max-width: 1200px;
