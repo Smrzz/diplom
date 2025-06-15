@@ -27,19 +27,25 @@
       </div>
     </header>
     <main class="tourism-main">
-    <container class="tourism-container">
+    <div class="resort-map-container">
+        <div class="resort-map">
+            <h2 class="tourism-title map-title">Карта курорта</h2>
+            <img src="{% static 'imgs/map.png' %}" alt="Карта курорта" class="map-image">
+        </div>
+    </div>
+    <div class="tourism-container">
         <h1 class="tourism-title">Горнолыжные склоны</h1>
         
         <div class="tourism-slopes">
             <div class="tourism-slope">
-                <h2 class="tourism-slope-name">Лесная поляна</h2>
+                <h2 class="tourism-slope-name">Учебный</h2>
                 <div class="tourism-slope-details">
                     <span class="tourism-slope-difficulty tourism-slope-beginner">Начинающий</span>
                     <span class="tourism-slope-length">800 метров</span>
                 </div>
                 <p class="tourism-slope-description">
                     Идеальный склон для новичков с пологим уклоном и широкой трассой. 
-                    Безопасное катание в живописном лесном окружении.
+                    Данный склон гарантирует безопасное катание.
                 </p>
             </div>
             
@@ -67,8 +73,7 @@
                 </p>
             </div>
         </div>
-
-    </container>
+    </div>
 </main>
 </body>
 

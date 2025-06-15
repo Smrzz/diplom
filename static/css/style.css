@@ -1068,18 +1068,18 @@ footer {
 
 .tourism-main{
     background-color: #f8fafc;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 .tourism-container {
     display: flex;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 50px auto 0;
     padding: 0px 20px;
     justify-content: center;
     flex-direction: column;
     gap: 20px;
-    min-height: 79vh;
-    
 }
 
 .tourism-title {
@@ -1150,6 +1150,28 @@ footer {
     font-size: 15px;
 }
 
+.resort-map-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.resort-map {
+    margin-top: 0;
+    text-align: center;
+}
+
+.map-title {
+    margin-bottom: 20px;
+}
+
+.map-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border: 2px solid #fff;
+}
 
 /* МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ */
 .form-popup {
