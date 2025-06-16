@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-s8$1(a4_5^5#2ib62u(itkv_2oy7-5+xrm4_q&#)g_h*s16^h+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['56kuva365.ru', 'www.56kuva365.ru', 'localhost', '127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = ['https://56kuva365.ru', 'https://www.56kuva365.ru']
 
 
 # Application definition
