@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 8088
 
-CMD ["python", "kuva365/manage.py", "runserver", "0.0.0.0:8088"]
+CMD ["python", "diplom/manage.py", "runserver", "0.0.0.0:8088"]
